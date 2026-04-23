@@ -16,6 +16,13 @@ interface Segredo {
 export default function MapaScreen() {
   const [segredos, setSegredos] = useState<Segredo[]>([]);
 
+  const initialRegion = {
+    latitude: segredos[0]?.latitude ?? -27.5954,
+    longitude: segredos[0]?.longitude ?? -48.548,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  };
+
   // Carrega os dados toda vez que a tela é aberta
   useEffect(() => {
     carregarSegredos();
@@ -32,15 +39,9 @@ export default function MapaScreen() {
   return (
     <View style={styles.container}>
       {/* TODO 6: O MapView precisa receber o initialRegion ou region */}
-      {location ? (
-      <MapView 
+      <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: location.latitude
-          longitude: location.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01
-        }}
+        initialRegion={initialRegion}
       >
 
         {/* TODO 7: Fazer um map() no array de segredos para criar os Markers */}
@@ -59,9 +60,6 @@ export default function MapaScreen() {
         ))}
 
       </MapView>
-      ) : (
-        <Text style={styles.loadingText}>Buscando localização...</Text>
-      )}
 
 
       {segredos.length === 0 && (
