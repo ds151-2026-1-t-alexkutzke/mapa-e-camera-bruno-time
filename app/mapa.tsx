@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
 // TODO: Importar AsyncStorage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -53,7 +53,15 @@ export default function MapaScreen() {
             <Callout>
               <View style={styles.calloutContainer}>
                 <Text style={styles.calloutText}>{segredo.texto}</Text>
-                {/* Desafio Bônus: Mostrar a miniatura da foto aqui dentro! */}
+                {segredo.fotoUri ? (
+                  <Image
+                    source={{ uri: segredo.fotoUri }}
+                    style={styles.calloutImage}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <Text style={styles.calloutSemFoto}>Sem foto</Text>
+                )}
               </View>
             </Callout>
           </Marker>
@@ -75,8 +83,20 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   loadingText: { flex: 1, textAlign: 'center', textAlignVertical: 'center', color: '#fff' },
   map: { width: '100%', height: '100%' },
-  calloutContainer: { width: 150, padding: 5 },
+  calloutContainer: { width: 180, padding: 8 },
   calloutText: { fontWeight: 'bold', textAlign: 'center' },
+  calloutImage: {
+    width: '100%',
+    height: 90,
+    marginTop: 8,
+    borderRadius: 6,
+  },
+  calloutSemFoto: {
+    textAlign: 'center',
+    marginTop: 8,
+    color: '#666',
+    fontSize: 12,
+  },
   avisoContainer: { position: 'absolute', top: 50, alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.7)', padding: 10, borderRadius: 20 },
   avisoText: { color: '#fff' }
 });

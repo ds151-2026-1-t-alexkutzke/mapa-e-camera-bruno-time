@@ -72,7 +72,7 @@ export default function NovoSegredoScreen() {
       Alert.alert('Sucesso', 'Segredo salvo com sucesso!');
       setTexto('');
       setFotoUri(null);
-    } catch (e) {
+    } catch {
       Alert.alert('Erro', 'Não foi possível salvar o segredo.');
     }
   };
